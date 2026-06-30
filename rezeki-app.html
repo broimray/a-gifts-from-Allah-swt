@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="من الله مالك الرزق" />
+  <title>من الله مالك الرزق</title>
+  <style>
+    :root{
+      --bg:#041714;
+      --bg2:#0b2e2a;
+      --card:rgba(255,255,255,.11);
+      --line:rgba(255,255,255,.13);
+      --text:#f8fafc;
+      --muted:#d1fae5;
+      --gold:#fbbf24;
+      --mint:#34d399;
+      --teal:#14b8a6;
+      --rose:#fb7185;
+      --shadow:0 22px 60px rgba(0,0,0,.28);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(52,211,153,.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(251,191,36,.14), transparent 26%),
+        linear-gradient(180deg, #031311 0%, #08201c 42%, #04110f 100%);
+      min-height:100vh;
+    }
+    .app{width:min(920px,100%);margin:0 auto;padding:18px 14px 90px}
+    .glass{
+      background:var(--card);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .hero{
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(135deg, rgba(8,47,73,.54), rgba(15,118,110,.5)),
+        radial-gradient(circle at 12% 18%, rgba(251,191,36,.24), transparent 24%),
+        radial-gradient(circle at 88% 14%, rgba(52,211,153,.18), transparent 20%);
+      margin-bottom:16px;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:0;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='1'%3E%3Cpath d='M0 130h1200'/%3E%3Cpath d='M0 320h1200'/%3E%3Cpath d='M0 510h1200'/%3E%3Cpath d='M0 700h1200'/%3E%3Cpath d='M120 0v900'/%3E%3Cpath d='M360 0v900'/%3E%3Cpath d='M600 0v900'/%3E%3Cpath d='M840 0v900'/%3E%3Cpath d='M1080 0v900'/%3E%3C/g%3E%3C/svg%3E");
+      opacity:.55;pointer-events:none;
+    }
+    .brand,.title,.subtitle,.hero-pills,.dua-box{position:relative;z-index:1}
+    .brand{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+      font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#d1fae5;
+    }
+    .title{font-size:31px;line-height:1.14;margin:14px 0 8px;font-weight:900;max-width:12ch}
+    .subtitle{margin:0 0 16px;color:#ecfdf5;line-height:1.75;max-width:62ch}
+    .hero-pills{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+    .pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);font-size:13px;font-weight:700}
+    .dua-box{
+      padding:22px;border-radius:22px;
+      background:linear-gradient(135deg, rgba(2,132,199,.3), rgba(15,118,110,.75) 48%, rgba(251,191,36,.14));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 18px 35px rgba(0,0,0,.22);
+    }
+    .dua-label{font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:#fde68a;font-weight:900;margin-bottom:10px}
+    .dua-arabic{font-size:31px;line-height:1.9;text-align:right;font-weight:800;color:#fff7d6;margin:0 0 12px;text-shadow:0 2px 18px rgba(0,0,0,.42)}
+    .dua-translation{white-space:pre-line;line-height:1.8;font-size:15px;margin:0;color:#f8fafc}
+    .grid{display:grid;gap:16px}
+    .stats{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:16px}
+    .card{padding:18px}
+    .section-title{margin:0 0 14px;font-size:20px;font-weight:900}
+    .stat-label{font-size:13px;color:#cbd5e1;margin-bottom:6px}
+    .stat-value{font-size:29px;font-weight:900}
+    .stat-hint{font-size:12px;color:#bbf7d0;margin-top:8px;line-height:1.6}
+    .bank-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .bank-item{padding:14px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
+    .bank-name{font-weight:800;margin-bottom:6px}
+    .bank-balance{font-size:22px;font-weight:900;margin-bottom:8px}
+    .bank-status{font-size:12px;color:#d1fae5;margin-bottom:10px}
+    .mini-row{display:flex;gap:8px}
+    .mini-row input{flex:1}
+    label{display:block;font-size:13px;font-weight:800;color:#dcfce7;margin-bottom:8px}
+    input,select,textarea,button{width:100%;border:0;border-radius:16px;font:inherit}
+    input,select,textarea{padding:14px;background:rgba(255,255,255,.96);color:#0f172a}
+    textarea{min-height:90px;resize:vertical}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+    button{padding:14px 16px;font-weight:900;cursor:pointer;background:linear-gradient(135deg, var(--mint), var(--teal));color:#062f2b;box-shadow:0 10px 22px rgba(20,184,166,.24)}
+    button.alt{background:rgba(255,255,255,.08);color:var(--text);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+    button.danger{background:linear-gradient(135deg, #fb7185, #f43f5e);color:white}
+    .slider{min-height:150px;display:flex;align-items:center}
+    .slide-title{color:#fde68a;font-weight:900;margin-bottom:8px}
+    .slide-body{line-height:1.75}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+    th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#a7f3d0}
+    .muted{color:#d1d5db}
+    .steps{line-height:1.8;color:#f0fdf4}
+    .steps strong{color:#fde68a}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(251,191,36,.12);color:#fde68a;border:1px solid rgba(251,191,36,.2);font-size:12px;font-weight:800;margin-bottom:10px}
+    .status-box{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+    .status-item{padding:14px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
+    .status-item b{display:block;font-size:12px;color:#a7f3d0;margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em}
+    .status-item span{font-size:16px;font-weight:800;line-height:1.6}
+    @media (max-width:780px){
+      .stats,.bank-list,.form-grid,.actions{grid-template-columns:1fr}
+      .title{font-size:27px}
+      .dua-arabic{font-size:25px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero glass">
+      <div class="brand">من الله مالك الرزق</div>
+      <h1 class="title">Kelola uang dengan tenang, jelas, dan penuh semangat bertumbuh.</h1>
+      <p class="subtitle">Tampilan dibuat lembut di mata, modern, dan fokus pertama langsung ke doa, syukur, sedekah, serta pertumbuhan saldo yang disiplin.</p>
+      <div class="hero-pills">
+        <div class="pill">Fokus: rezeki tertata</div>
+        <div class="pill">Mindset: syukur + disiplin</div>
+        <div class="pill">Target: saldo makin kuat</div>
+      </div>
+      <div class="dua-box">
+        <div class="dua-label">Doa utama harian</div>
+        <p id="duaArabic" class="dua-arabic"></p>
+        <p id="duaTranslation" class="dua-translation"></p>
+      </div>
+    </section>
+
+    <section class="grid stats">
+      <div class="glass card">
+        <div class="stat-label">Total saldo keseluruhan</div>
+        <div id="totalBalance" class="stat-value">Rp 0</div>
+        <div class="stat-hint">Akumulasi semua akun digital dan uang cash.</div>
+      </div>
+      <div class="glass card">
+        <div class="stat-label">Saldo aktif yang dapat dipakai</div>
+        <div id="activeBalance" class="stat-value">Rp 0</div>
+        <div class="stat-hint">Hanya akun dengan saldo <strong>lebih dari Rp 20.000</strong>. Jika kurang, dianggap tidak ada.</div>
+      </div>
+    </section>
+
+    <section class="glass card" style="margin-bottom:16px">
+      <h2 class="section-title">Daftar saldo bank digital & cash</h2>
+      <div id="bankList" class="bank-list"></div>
+    </section>
+
+    <section class="glass card" style="margin-bottom:16px">
+      <h2 class="section-title">Pengingat syukur, manfaat syukur, dan sedekah</h2>
+      <div id="reminderSlider" class="slider"></div>
+    </section>
+
+    <section class="glass card" style="margin-bottom:16px">
+      <h2 class="section-title">Input transaksi</h2>
+      <div class="form-grid">
+        <div>
+          <label for="accountSelect">Sumber dana</label>
+          <select id="accountSelect"></select>
+        </div>
+        <div>
+          <label for="typeSelect">Jenis transaksi</label>
+          <select id="typeSelect">
+            <option value="masuk">Uang masuk</option>
+            <option value="keluar">Uang keluar</option>
+            <option value="sedekah">Sedekah</option>
+            <option value="tabung">Menabung</option>
+          </select>
+        </div>
+        <div>
+          <label for="amountInput">Jumlah</label>
+          <input id="amountInput" type="number" placeholder="Contoh: 50000" />
+        </div>
+        <div>
+          <label for="dateInput">Tanggal</label>
+          <input id="dateInput" type="date" />
+        </div>
+      </div>
+      <div style="margin-top:12px">
+        <label for="noteInput">Catatan</label>
+        <textarea id="noteInput" placeholder="Contoh: gaji freelance, beli makan, sedekah Jumat"></textarea>
+      </div>
+      <div class="actions">
+        <button id="saveTransactionBtn">Simpan transaksi</button>
+        <button id="exportTransactionsBtn" class="alt">Export transaksi</button>
+        <button id="exportAccountBtn" class="alt">Export akun terpilih</button>
+        <button id="exportSummaryBtn" class="alt">Export keseluruhan</button>
+      </div>
+    </section>
+
+    <section class="glass card" style="margin-bottom:16px">
+      <div class="badge">Riwayat pembukuan</div>
+      <div style="overflow:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Akun</th>
+              <th>Jenis</th>
+              <th>Jumlah</th>
+              <th>Catatan</th>
+            </tr>
+          </thead>
+          <tbody id="transactionBody"></tbody>
+        </table>
+      </div>
+      <div class="actions" style="margin-top:14px">
+        <button id="resetBtn" class="danger">Reset semua data</button>
+        <button id="seedBtn" class="alt">Isi contoh data</button>
+        <button id="refreshBtn" class="alt">Refresh ringkasan</button>
+        <button id="guideBtn" class="alt">Lihat panduan iPhone</button>
+      </div>
+    </section>
+
+    <section class="glass card">
+      <h2 class="section-title">Panduan pakai di iPhone</h2>
+      <div id="guideText" class="steps"></div>
+      <div class="status-box">
+        <div class="status-item">
+          <b>Status tampilan</b>
+          <span id="displayStatus">Browser Safari biasa</span>
+        </div>
+        <div class="status-item">
+          <b>Mode Home Screen</b>
+          <span id="homescreenStatus">Belum terdeteksi</span>
+        </div>
+        <div class="status-item">
+          <b>Penyimpanan data</b>
+          <span id="storageStatus">Aktif di perangkat ini</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const APP_NAME = 'من الله مالك الرزق';
+    const STORAGE_KEY = 'rezekiAppSingleFileV1';
+    const ACTIVE_MIN = 20000;
+    const baseAccounts = [
+      { id:'gopay', name:'GoPay', balance:0 },
+      { id:'bca-mobile', name:'BCA Mobile', balance:0 },
+      { id:'blu', name:'blu', balance:0 },
+      { id:'jago', name:'Jago', balance:0 },
+      { id:'dana', name:'DANA', balance:0 },
+      { id:'ovo', name:'OVO', balance:0 },
+      { id:'bca-syariah', name:'BCA Syariah', balance:0 },
+      { id:'jenius', name:'Jenius', balance:0 },
+      { id:'line-bank', name:'Line Bank', balance:0 },
+      { id:'cash', name:'Uang Cash', balance:0 }
+    ];
+    const reminders = [
+      { title:'Hadis shahih tentang sedekah', body:'“Sedekah tidaklah mengurangi harta.” Riwayat Sahih Muslim 2588.' },
+      { title:'Manfaat sedekah', body:'Sedekah melatih hati agar tidak sempit, menjaga niat saat ingin kaya, dan membuat harta lebih berkah serta lebih bermakna.' },
+      { title:'Hadis shahih tentang syukur', body:'“Sungguh menakjubkan urusan orang beriman... jika mendapat kesenangan ia bersyukur, maka itu baik baginya.” Riwayat Sahih Muslim 2999.' },
+      { title:'Manfaat syukur', body:'Syukur membantu hati lebih tenang, fokus pada pertumbuhan, dan tidak mudah merasa kurang saat proses membangun rezeki.' },
+      { title:'Hadis shahih tentang berterima kasih', body:'“Siapa yang tidak berterima kasih kepada manusia, maka ia tidak bersyukur kepada Allah.” Riwayat Sunan Abi Dawud 4811.' }
+    ];
+    const duaArabic = 'اللَّهُمَّ هَبْ لِي حَمْدًا، وَهَبْ لِي مَجْدًا، لَا مَجْدَ إِلَّا بِفِعَالٍ، وَلَا فِعَالَ إِلَّا بِمَالٍ، اللَّهُمَّ لَا يُصْلِحُنِي الْقَلِيلُ وَلَا أَصْلُحُ عَلَيْهِ';
+    const duaTranslation = 'Ya Allah aku tidak cocok jadi miskin dan kemiskinan tidak cocok untukku.\nYa Allah jauhkanlah aku dari kemiskinan, sehingga aku selalu kaya dan tidak butuh bantuan orang lain, selalu berkecukupan untuk sedekah.\nYa Allah jadikanlh aku kaya dengan kemurahanmu';
+
+    let reminderIndex = 0;
+    let state = loadState();
+
+    function formatRupiah(v){
+      return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(v)||0);
+    }
+    function loadState(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
+        if(!saved) return { accounts: structuredClone(baseAccounts), transactions: [] };
+        const accounts = structuredClone(baseAccounts).map(base=>{
+          const found = (saved.accounts||[]).find(a=>a.id===base.id);
+          return found ? { ...base, balance:Number(found.balance||0) } : base;
+        });
+        return { accounts, transactions:Array.isArray(saved.transactions)?saved.transactions:[] };
+      }catch(e){
+        return { accounts: structuredClone(baseAccounts), transactions: [] };
+      }
+    }
+    function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function accountById(id){ return state.accounts.find(a=>a.id===id); }
+    function csvDownload(name, rows){
+      const csv = rows.map(r=>r.map(c=>'"'+String(c).replaceAll('"','""')+'"').join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+    function renderHero(){
+      document.getElementById('duaArabic').textContent = duaArabic + ' ' + duaArabic;
+      document.getElementById('duaTranslation').textContent = duaTranslation + '\n\n' + duaTranslation;
+    }
+    function renderGuide(){
+      document.getElementById('guideText').innerHTML =
+        '<strong>Langkah 1.</strong> Cek dulu semua tampilan, saldo, transaksi, dan export di file ini sampai Anda merasa cocok. <br>'+
+        '<strong>Langkah 2.</strong> Simpan file ini dengan nama <strong>rezeki-app.html</strong>. <br>'+
+        '<strong>Langkah 3.</strong> Upload file ke hosting sederhana. Paling mudah untuk pemula: <strong>Netlify Drop</strong> atau <strong>GitHub Pages</strong>. <br>'+
+        '<strong>Langkah 4.</strong> Setelah dapat link, buka link itu lewat <strong>Safari di iPhone</strong>. <br>'+
+        '<strong>Langkah 5.</strong> Tekan tombol <strong>Share</strong> di Safari, lalu pilih <strong>Add to Home Screen</strong>. Apple memang mendukung langkah ini untuk membuat web app dari website di iPhone.<sup data-citation="6"></sup> <br>'+
+        '<strong>Langkah 6.</strong> Ubah nama menjadi <strong>'+APP_NAME+'</strong>, lalu tekan <strong>Add</strong>. <br>'+
+        '<strong>Langkah 7.</strong> Setelah ikon muncul di Home Screen, buka dari ikon itu. Jika terbuka tanpa bar Safari biasa, berarti mode web app sudah berhasil. <br><br>'+
+        '<strong>Tentang PWA:</strong> manifest adalah file JSON yang mengatur identitas aplikasi seperti nama, ikon, dan tampilan saat diinstal.<sup data-citation="1"></sup> Service worker dipakai untuk kemampuan aplikasi progresif seperti pengelolaan cache dan pengalaman yang lebih tahan saat koneksi tidak stabil.<sup data-citation="3"></sup> <br><br>'+
+        '<strong>Saran paling aman untuk Anda:</strong> pakai file ini dulu sebagai web app iPhone, lalu setelah Anda nyaman, saya bantu tahap berikutnya untuk menambahkan <strong>manifest</strong>, <strong>ikon</strong>, dan <strong>service worker</strong> agar lebih mendekati PWA penuh.';
+    }
+
+    function renderInstallStatus(){
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      document.getElementById('displayStatus').textContent = isStandalone ? 'Mode aplikasi mandiri' : 'Browser Safari biasa';
+      document.getElementById('homescreenStatus').textContent = isStandalone ? 'Sudah dibuka dari Home Screen' : 'Belum dibuka dari Home Screen';
+      document.getElementById('storageStatus').textContent = 'Data tersimpan lokal di perangkat ini';
+    }
+    function renderAccounts(){
+      const wrap = document.getElementById('bankList');
+      const select = document.getElementById('accountSelect');
+      wrap.innerHTML = ''; select.innerHTML = '';
+      state.accounts.forEach(acc=>{
+        const active = acc.balance > ACTIVE_MIN;
+        const div = document.createElement('div');
+        div.className = 'bank-item';
+        div.innerHTML =
+          '<div class="bank-name">'+acc.name+'</div>'+
+          '<div class="bank-balance">'+formatRupiah(acc.balance)+'</div>'+
+          '<div class="bank-status">'+(active?'Saldo aktif dan bisa dipakai':'Di bawah batas aktif Rp 20.000')+'</div>'+
+          '<div class="mini-row">'+
+            '<input type="number" placeholder="Ubah saldo" data-balance-input="'+acc.id+'">'+
+            '<button class="alt" data-save-balance="'+acc.id+'">Simpan</button>'+
+          '</div>';
+        wrap.appendChild(div);
+        const opt = document.createElement('option');
+        opt.value = acc.id; opt.textContent = acc.name; select.appendChild(opt);
+      });
+      wrap.querySelectorAll('[data-save-balance]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const id = btn.getAttribute('data-save-balance');
+          const input = wrap.querySelector('[data-balance-input="'+id+'"]');
+          const value = Number(input.value||0);
+          accountById(id).balance = value;
+          saveState(); renderAccounts(); renderSummary();
+        });
+      });
+    }
+    function renderSummary(){
+      const total = state.accounts.reduce((s,a)=>s+a.balance,0);
+      const active = state.accounts.filter(a=>a.balance>ACTIVE_MIN).reduce((s,a)=>s+a.balance,0);
+      document.getElementById('totalBalance').textContent = formatRupiah(total);
+      document.getElementById('activeBalance').textContent = formatRupiah(active);
+    }
+    function renderSlider(){
+      const current = reminders[reminderIndex];
+      document.getElementById('reminderSlider').innerHTML = '<div><div class="slide-title">'+current.title+'</div><div class="slide-body">'+current.body+'</div></div>';
+    }
+    function startSlider(){ setInterval(()=>{ reminderIndex = (reminderIndex + 1) % reminders.length; renderSlider(); }, 4200); }
+    function renderTransactions(){
+      const body = document.getElementById('transactionBody');
+      if(!state.transactions.length){ body.innerHTML = '<tr><td colspan="5" class="muted">Belum ada transaksi. Mulai dari saldo awal tiap akun lalu catat transaksi masuk, keluar, sedekah, dan tabungan.</td></tr>'; return; }
+      body.innerHTML = state.transactions.map(t=>{
+        const acc = accountById(t.accountId);
+        return '<tr><td>'+t.date+'</td><td>'+(acc?acc.name:'-')+'</td><td>'+t.type+'</td><td>'+formatRupiah(t.amount)+'</td><td>'+(t.note||'-')+'</td></tr>';
+      }).join('');
+    }
+    function exportTransactions(){
+      const rows = [['Tanggal','Akun','Jenis','Jumlah','Catatan']];
+      state.transactions.forEach(t=>{ const acc = accountById(t.accountId); rows.push([t.date, acc?acc.name:'-', t.type, t.amount, t.note||'']); });
+      csvDownload('laporan-transaksi-'+new Date().toISOString().slice(0,10)+'.csv', rows);
+    }
+    function exportAccount(){
+      const id = document.getElementById('accountSelect').value;
+      const acc = accountById(id);
+      const rows = [['Akun', acc.name], ['Saldo Saat Ini', acc.balance], [' ', ' '], ['Tanggal','Jenis','Jumlah','Catatan']];
+      state.transactions.filter(t=>t.accountId===id).forEach(t=>rows.push([t.date, t.type, t.amount, t.note||'']));
+      csvDownload('laporan-'+acc.id+'-'+new Date().toISOString().slice(0,10)+'.csv', rows);
+    }
+    function exportSummary(){
+      const total = state.accounts.reduce((s,a)=>s+a.balance,0);
+      const active = state.accounts.filter(a=>a.balance>ACTIVE_MIN).reduce((s,a)=>s+a.balance,0);
+      const rows = [['Nama Aplikasi', APP_NAME], ['Tanggal Export', new Date().toLocaleString('id-ID')], ['Total Saldo Keseluruhan', total], ['Saldo Aktif Dapat Dipakai', active], ['Batas Aktif', 'Lebih dari 20000'], [' ', ' '], ['Akun','Saldo']];
+      state.accounts.forEach(a=>rows.push([a.name, a.balance]));
+      csvDownload('laporan-keseluruhan-'+new Date().toISOString().slice(0,10)+'.csv', rows);
+    }
+    function addTransaction(){
+      const accountId = document.getElementById('accountSelect').value;
+      const type = document.getElementById('typeSelect').value;
+      const amount = Number(document.getElementById('amountInput').value||0);
+      const date = document.getElementById('dateInput').value;
+      const note = document.getElementById('noteInput').value.trim();
+      if(!accountId || amount <= 0 || !date){ alert('Lengkapi akun, jumlah, dan tanggal terlebih dulu.'); return; }
+      const acc = accountById(accountId);
+      if(type==='keluar' || type==='sedekah') acc.balance -= amount; else acc.balance += amount;
+      state.transactions.unshift({ accountId, type, amount, date, note });
+      saveState(); renderAccounts(); renderSummary(); renderTransactions();
+      document.getElementById('amountInput').value=''; document.getElementById('noteInput').value='';
+    }
+    function seedData(){
+      state = { accounts: structuredClone(baseAccounts), transactions: [] };
+      accountById('cash').balance = 150000;
+      accountById('gopay').balance = 45000;
+      accountById('dana').balance = 18000;
+      accountById('jago').balance = 210000;
+      state.transactions = [
+        { accountId:'jago', type:'masuk', amount:250000, date:new Date().toISOString().slice(0,10), note:'Contoh pemasukan' },
+        { accountId:'cash', type:'keluar', amount:50000, date:new Date().toISOString().slice(0,10), note:'Contoh belanja' },
+        { accountId:'gopay', type:'sedekah', amount:5000, date:new Date().toISOString().slice(0,10), note:'Contoh sedekah' }
+      ];
+      saveState(); renderAccounts(); renderSummary(); renderTransactions();
+    }
+    function resetAll(){
+      if(!confirm('Yakin ingin menghapus semua data pembukuan?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      state = { accounts: structuredClone(baseAccounts), transactions: [] };
+      renderAccounts(); renderSummary(); renderTransactions();
+    }
+    function bind(){
+      document.getElementById('dateInput').valueAsDate = new Date();
+      document.getElementById('saveTransactionBtn').addEventListener('click', addTransaction);
+      document.getElementById('exportTransactionsBtn').addEventListener('click', exportTransactions);
+      document.getElementById('exportAccountBtn').addEventListener('click', exportAccount);
+      document.getElementById('exportSummaryBtn').addEventListener('click', exportSummary);
+      document.getElementById('resetBtn').addEventListener('click', resetAll);
+      document.getElementById('seedBtn').addEventListener('click', seedData);
+      document.getElementById('refreshBtn').addEventListener('click', ()=>{ renderAccounts(); renderSummary(); renderTransactions(); });
+      document.getElementById('guideBtn').addEventListener('click', ()=>document.getElementById('guideText').scrollIntoView({behavior:'smooth'}));
+    }
+    renderHero();
+    renderGuide();
+    renderInstallStatus();
+    renderAccounts();
+    renderSummary();
+    renderSlider();
+    renderTransactions();
+    bind();
+    startSlider();
+  </script>
+</body>
+</html>
